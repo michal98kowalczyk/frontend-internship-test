@@ -9,6 +9,7 @@ const password = document.querySelector("form .password");
 const terms = document.querySelector("form .terms");
 const btnSubmit = document.querySelector("form .submit");
 
+
 let isEmailCorrect = false;
 let isPasswordCorrect = false;
 let isCheckboxSelected = false;
@@ -17,15 +18,18 @@ let isCheckboxSelected = false;
 
 function showPopup() {
     popup.classList.toggle('active');
-    btnClickMe.classList.remove('active');
+
 }
 
 function hidePopup() {
     popup.classList.remove('active');
-    btnClickMe.classList.add('active');
+
     password.value = "Password";
     email.value = "E-mail";
     terms.checked = false;
+    isCheckboxSelected = false;
+    isEmailCorrect = false;
+    isPasswordCorrect = false;
 }
 
 
@@ -58,6 +62,24 @@ function validatePassword() {
 
 
 
+const submitForm = (e) => {
+    e.preventDefault();
+
+
+    if (isCheckboxSelected && isEmailCorrect && isPasswordCorrect) {
+        setTimeout(hidePopup, 3000);
+
+        btnClickMe.classList.remove('active');
+        message.classList.add('active');
+        btnSubmit.removeEventListener('click', submitForm);
+
+    } else {
+        alert("Form is incompleted!")
+    }
+
+
+}
+
 
 
 btnClickMe.addEventListener('click', showPopup);
@@ -67,3 +89,6 @@ password.addEventListener('change', validatePassword);
 terms.addEventListener('click', () => {
     isCheckboxSelected = !isCheckboxSelected;
 })
+
+
+btnSubmit.addEventListener('click', submitForm);
