@@ -23,7 +23,47 @@ function showPopup() {
 function hidePopup() {
     popup.classList.remove('active');
     btnClickMe.classList.add('active');
+    password.value = "Password";
+    email.value = "E-mail";
+    terms.checked = false;
 }
-// showPopup();
+
+
+email.addEventListener('click', () => {
+    email.value = "";
+})
+password.addEventListener('click', () => {
+    password.value = "";
+})
+
+function validateEmail() {
+    const re = /\S+@\S+\.\S+/;
+    isEmailCorrect = re.test(email.value);
+
+    if (!isEmailCorrect) {
+        alert("Email is incorrect!");
+        email.value = "E-mail"
+    }
+}
+
+function validatePassword() {
+    const re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");;
+    isPasswordCorrect = re.test(password.value);
+
+    if (!isPasswordCorrect) {
+        alert("Password must contain at least 1 uppercase, numeric and special character!");
+        password.value = "Password"
+    }
+}
+
+
+
+
+
 btnClickMe.addEventListener('click', showPopup);
 btnExit.addEventListener('click', hidePopup);
+email.addEventListener('change', validateEmail);
+password.addEventListener('change', validatePassword);
+terms.addEventListener('click', () => {
+    isCheckboxSelected = !isCheckboxSelected;
+})
